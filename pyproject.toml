@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mockpatch"
+description = "MockPatch"
+readme = "README.md"
+dependencies = [
+  "fastapi",
+  "pydantic-settings",
+  "uvicorn[standard]",
+]
+requires-python = ">= 3.11"
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["mockpatch"]
+
+[tool.setuptools.dynamic]
+version = {attr = "mockpatch.__version__"}

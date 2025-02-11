@@ -1,0 +1,27 @@
+networks:
+  mockpatch:
+    name: mockpatch
+    driver: bridge
+    external: false
+
+services:
+  mockpatch:
+    container_name: mockpatch
+    hostname: mockpatch
+    image: mockpatch
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      extra_hosts:
+        - host.docker.internal:host-gateway
+      args:
+        PIP_CONF: ${PIP_CONF:-pip config list}
+    volumes:
+      - ./static:/app/static
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mockpatch
+    ports:
+      - 8080:8080
