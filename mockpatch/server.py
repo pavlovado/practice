@@ -13,7 +13,7 @@ application.mount(
 
 @application.get("/", response_class=RedirectResponse)
 async def root():
-    return "/static/index.htm"
+    return "/static/index.html"
 
 
 @application.get("/api/1.0/survey/{subject}")
@@ -102,6 +102,7 @@ async def survey(subject: UUID, request: Request):
     }
 
 
+#Ваня
 @application.websocket("/api/1.0/support/{subject}/ws")
 async def support(subject: UUID, websocket: WebSocket):
     await websocket.accept()
