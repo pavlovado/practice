@@ -4,9 +4,133 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Опрос</title>
+    <script src="js/element.js" defer></script>
   </head>
   <body>
-    <script src="js/element.js"></script>
+    <template id="survey-template">
+      <style>
+        :host {
+            display: block;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h3 {
+            margin-top: 0;
+        }
+        button {
+            padding: 8px 12px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .pagination-button {
+            padding: 5px 10px;
+            border: 0.5px solid #0056b3; /* Черная рамка */
+            background-color: #c7f3ff; /* Черный фон */
+            color: #000000; /* Белый текст */
+            cursor: pointer;
+            border-radius: 3px;
+            margin: 0 3px;
+            transition: all 0.3s ease; /* Плавный переход */
+        }
+        .pagination-button:hover {
+            background-color: #fff; /* Белый фон */
+            color: #000; /* Черный текст */
+            border-color: #0056b3; /* Черная рамка */
+        }
+        .pagination-button.active {
+            background-color: #fff; /* Белый фон для активной кнопки */
+            color: #000; /* Черный текст для активной кнопки */
+            border-color: #0056b3; /* Черная рамка для активной кнопки */
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        #navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        #pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        #prevButton {
+            margin-right: auto;
+        }
+        #nextButton {
+            margin-left: auto;
+        }
+        #prevButton, #nextButton {
+            margin: 0 10px; /* Добавим немного отступа для кнопок назад и вперед */
+        }
+        #confirmation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        #confirmation.hidden {
+            display: none;
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        #overlay.hidden {
+            display: none;
+        }
+      </style>
+      <div id="intro">
+        <h3 id="survey-title">Опрос</h3>
+        <p id="survey-description"></p>
+        <button id="startButton">Начать</button>
+      </div>
+
+      <slot name="questions" id="questions" class="hidden"></slot>
+      <div id="pagination" class="hidden"></div>
+      <div id="navigation" class="hidden">
+        <button id="prevButton" class="hidden">Назад</button>
+        <button id="nextButton" class="hidden">Вперед</button>
+        <button id="submitButton" class="hidden">Завершить</button>
+      </div>
+
+      <div id="overlay" class="hidden"></div>
+      <div id="confirmation" class="hidden">
+        <p>Вы уверены, что хотите отправить ответы?</p>
+        <button id="confirmSubmit">Отправить</button>
+        <button id="cancelSubmit">Назад</button>
+      </div>
+
+
+    </template>
+
     <survey-component uuid="54d4af17-601f-4fc8-a460-1b64905459fd"></survey-component>
   </body>
 </html>
