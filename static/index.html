@@ -27,30 +27,29 @@
             color: white;
             cursor: pointer;
             border-radius: 3px;
-            margin-top: 10px;
         }
         button:hover {
             background-color: #0056b3;
         }
         .pagination-button {
             padding: 5px 10px;
-            border: 0.5px solid #0056b3; /* Черная рамка */
-            background-color: #c7f3ff; /* Черный фон */
-            color: #000000; /* Белый текст */
+            border: 0.5px solid #0056b3; 
+            background-color: #c7f3ff; 
+            color: #000000; 
             cursor: pointer;
             border-radius: 3px;
             margin: 0 3px;
-            transition: all 0.3s ease; /* Плавный переход */
+            transition: all 0.3s ease; 
         }
         .pagination-button:hover {
-            background-color: #fff; /* Белый фон */
-            color: #000; /* Черный текст */
-            border-color: #0056b3; /* Черная рамка */
+            background-color: #fff; 
+            color: #000; 
+            border-color: #0056b3; 
         }
         .pagination-button.active {
-            background-color: #fff; /* Белый фон для активной кнопки */
-            color: #000; /* Черный текст для активной кнопки */
-            border-color: #0056b3; /* Черная рамка для активной кнопки */
+            background-color: #fff; 
+            color: #000; 
+            border-color: #0056b3; 
         }
         input[type="radio"] {
             margin-right: 5px;
@@ -58,26 +57,19 @@
         .hidden {
             display: none;
         }
-        #navigation {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
+        #navigation-container {
+        display: flex;
+        justify-content: space-between; 
+        margin-top: 10px;
         }
         #pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 20px;
+        display: flex;
         }
-        #prevButton {
-            margin-right: auto;
+        #navigation {
+        display: flex;
         }
-        #nextButton {
-            margin-left: auto;
-        }
-        #prevButton, #nextButton {
-            margin: 0 10px; /* Добавим немного отступа для кнопок назад и вперед */
+        #navigation button {
+        margin: 0 5px;
         }
         #confirmation {
             position: fixed;
@@ -112,25 +104,22 @@
         <p id="survey-description"></p>
         <button id="startButton">Начать</button>
       </div>
-
       <slot name="questions" id="questions" class="hidden"></slot>
-      <div id="pagination" class="hidden"></div>
-      <div id="navigation" class="hidden">
-        <button id="prevButton" class="hidden">Назад</button>
-        <button id="nextButton" class="hidden">Вперед</button>
-        <button id="submitButton" class="hidden">Завершить</button>
+      <div id="navigation-container" class="hidden">
+        <div id="pagination"></div>
+        <div id="navigation">
+          <button id="prevButton" class="hidden">Назад</button>
+          <button id="nextButton" class="hidden">Вперед</button>
+          <button id="submitButton" class="hidden">Завершить</button>
+        </div>
       </div>
-
       <div id="overlay" class="hidden"></div>
       <div id="confirmation" class="hidden">
         <p>Вы уверены, что хотите отправить ответы?</p>
         <button id="confirmSubmit">Отправить</button>
         <button id="cancelSubmit">Назад</button>
-      </div>
-
-
+      </div>  
     </template>
-
     <survey-component uuid="54d4af17-601f-4fc8-a460-1b64905459fd"></survey-component>
   </body>
 </html>
