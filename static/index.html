@@ -89,6 +89,17 @@
         #confirmation.hidden {
             display: none;
         }
+        #confirmation-container {
+          text-align: center;
+          margin-top: 10px;
+        }
+        #confirmation-buttons {
+          display: flex;
+          justify-content: space-between; /* Можно заменить на center или flex-end */
+          flex-direction: row;
+          gap: 10px; /* Отступ между кнопками */
+          margin-top: 10px;
+        }
         #overlay {
             position: fixed;
             top: 0;
@@ -107,8 +118,12 @@
         <p id="survey-description"></p>
         <button id="startButton">Начать</button>
       </div>
-      <slot name="questions" id="questions" class="hidden"></slot>
+
+      <slot name="questions" id="questions" class></slot>
+
       <div id="navigation-container" class="hidden">
+        <div id="overlay" class="hidden"></div>
+
         <div id="pagination"></div>
         <div id="navigation">
           <button id="prevButton" class="hidden">Назад</button>
@@ -116,12 +131,14 @@
           <button id="submitButton" class="hidden">Завершить</button>
         </div>
       </div>
-      <div id="overlay" class="hidden"></div>
-      <div id="confirmation" class="hidden">
-        <p>Вы уверены, что хотите отправить ответы?</p>
-        <button id="confirmSubmit">Отправить</button>
-        <button id="cancelSubmit">Назад</button>
-      </div>  
+
+      <!-- <div id="confirmation-container" class="hidden">
+        <p><strong>Вы уверены, что хотите отправить ответы?</strong></p>
+        <div id="confirmation-buttons">
+          <button id="confirmSubmit">Отправить</button>
+          <button id="cancelSubmit">Назад</button>
+        </div> -->
+      </div>      
     </template>
     <survey-component uuid="54d4af17-601f-4fc8-a460-1b64905459fd"></survey-component>
   </body>

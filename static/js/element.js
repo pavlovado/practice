@@ -113,53 +113,41 @@ class SurveyComponent extends HTMLElement {
     };
     submitButton.onclick = () => this.showConfirmation();
   }
+  
 
   showConfirmation() {
-    const slot = this.shadowRoot.querySelector("slot[name='questions']");
-    slot.innerHTML = "";
+    this.shadowRoot.querySelector("#navigation-container").classList.add("hidden");
 
-    // Скрываем панель навигации
-    const navigationContainer = this.shadowRoot.querySelector("#navigation-container");
-    if (navigationContainer) {
-        navigationContainer.style.display = "none";
-    }
-
-    const confirmationDiv = document.createElement("div");
-    confirmationDiv.innerHTML = `
-      <p><strong>Вы уверены, что хотите отправить ответы?</strong></p>
-      <button id="confirmSubmit">Отправить</button>
-      <button id="cancelSubmit">Назад</button>
-    `;
-
-    slot.appendChild(confirmationDiv);
+    this.shadowRoot.querySelector("#confirmation-container").classList.remove("hidden");
 
     this.shadowRoot.querySelector("#confirmSubmit").addEventListener("click", () => this.submitSurvey());
     this.shadowRoot.querySelector("#cancelSubmit").addEventListener("click", () => this.cancelSubmit());
-}
-
-cancelSubmit() {
-    // Показываем панель навигации обратно
-    const navigationContainer = this.shadowRoot.querySelector("#navigation-container");
-    if (navigationContainer) {
-        navigationContainer.style.display = "flex";
-    }
-
-    this.renderQuestion();
-}
-
-  submitSurvey() {
-    fetch(`/api/1.0/survey/${this.uuid}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(this.answers)
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log("Результат отправки:", result);
-      alert("Спасибо за участие в опросе!");
-    })
-    .catch(error => console.error("Ошибка отправки", error));
   }
+
+  cancelSubmit() {
+    this.shadowRoot.querySelector("#navigation-container").classList.remove("hidden");
+  
+    this.shadowRoot.querySelector("#confirmation-container").classList.add("hidden");
+  
+    this.renderQuestion();
+  }
+
+submitSurvey() {
+  fetch(`/api/1.0/survey/${this.uuid}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(this.answers)
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log("Результат отправки:", result);
+    alert("Спасибо за участие в опросе!");
+
+    this.remove();
+  })
+  .catch(error => console.error("Ошибка отправки", error));
+}
+
 }
 
 customElements.define("survey-component", SurveyComponent);
