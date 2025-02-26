@@ -119,7 +119,7 @@
         <button id="startButton">Начать</button>
       </div>
 
-      <slot name="questions" id="questions" class></slot>
+      <slot name="questions" id="questions"></slot>
 
       <div id="navigation-container" class="hidden">
         <div id="overlay" class="hidden"></div>
@@ -132,12 +132,12 @@
         </div>
       </div>
 
-      <!-- <div id="confirmation-container" class="hidden">
+      <div id="confirmation-container" class="hidden">
         <p><strong>Вы уверены, что хотите отправить ответы?</strong></p>
         <div id="confirmation-buttons">
-          <button id="confirmSubmit">Отправить</button>
           <button id="cancelSubmit">Назад</button>
-        </div> -->
+          <button id="confirmSubmit">Отправить</button>
+        </div>
       </div>      
     </template>
     <survey-component uuid="54d4af17-601f-4fc8-a460-1b64905459fd"></survey-component>

@@ -114,40 +114,40 @@ class SurveyComponent extends HTMLElement {
     submitButton.onclick = () => this.showConfirmation();
   }
   
-
   showConfirmation() {
-    this.shadowRoot.querySelector("#navigation-container").classList.add("hidden");
+    const slot = this.shadowRoot.querySelector("slot[name='questions']");
+    slot.innerHTML = "";  
 
-    this.shadowRoot.querySelector("#confirmation-container").classList.remove("hidden");
-
-    this.shadowRoot.querySelector("#confirmSubmit").addEventListener("click", () => this.submitSurvey());
-    this.shadowRoot.querySelector("#cancelSubmit").addEventListener("click", () => this.cancelSubmit());
+    this.shadowRoot.querySelector("#navigation-container").style.display = "none";
+    this.shadowRoot.querySelector("#confirmation-container").style.display = "block";
+   
+    this.shadowRoot.querySelector("#confirmSubmit").onclick = () => this.submitSurvey();
+    this.shadowRoot.querySelector("#cancelSubmit").onclick = () => this.cancelSubmit();
   }
 
   cancelSubmit() {
-    this.shadowRoot.querySelector("#navigation-container").classList.remove("hidden");
-  
-    this.shadowRoot.querySelector("#confirmation-container").classList.add("hidden");
-  
+    this.shadowRoot.querySelector("#confirmation-container").style.display = "none"; 
+    this.shadowRoot.querySelector("#navigation-container").style.display = "flex"; 
+
     this.renderQuestion();
   }
 
-submitSurvey() {
-  fetch(`/api/1.0/survey/${this.uuid}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(this.answers)
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log("Результат отправки:", result);
-    alert("Спасибо за участие в опросе!");
+  submitSurvey() {
+    fetch(`/api/1.0/survey/${this.uuid}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(this.answers)
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Результат отправки:", result);
+      alert("Спасибо за участие в опросе!");
 
-    this.remove();
-  })
-  .catch(error => console.error("Ошибка отправки", error));
-}
-
+      this.remove();
+    })
+    .catch(error => console.error("Ошибка отправки", error));
+  }
+  
 }
 
 customElements.define("survey-component", SurveyComponent);
