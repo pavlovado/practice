@@ -86,6 +86,9 @@ class SurveyComponent extends HTMLElement {
       if (index === this.currentQuestionIndex) {
         button.classList.add("active");
       }
+      if (this.answers[this.surveyData.questions[index].uuid]) {
+        button.classList.add("answered");
+      }
       button.addEventListener("click", () => {
         this.currentQuestionIndex = index;
         this.renderQuestion();
@@ -110,6 +113,7 @@ class SurveyComponent extends HTMLElement {
     nextButton.onclick = () => {
       this.currentQuestionIndex++;
       this.renderQuestion();
+      this.updatePagination(); 
     };
     submitButton.onclick = () => this.showConfirmation();
   }
