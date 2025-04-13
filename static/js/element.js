@@ -117,7 +117,6 @@ class SurveyComponent extends HTMLElement {
     };
     submitButton.onclick = () => this.showConfirmation();
   }
-  
   showConfirmation() {
     const slot = this.shadowRoot.querySelector("slot[name='questions']");
     slot.innerHTML = "";  
