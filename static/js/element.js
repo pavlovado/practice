@@ -117,17 +117,29 @@ class SurveyComponent extends HTMLElement {
     };
     submitButton.onclick = () => this.showConfirmation();
   }
+
   showConfirmation() {
     const slot = this.shadowRoot.querySelector("slot[name='questions']");
-    slot.innerHTML = "";  
-
+    slot.innerHTML = "";
+  
     this.shadowRoot.querySelector("#navigation-container").style.display = "none";
     this.shadowRoot.querySelector("#confirmation-container").style.display = "block";
-   
+  
+    // ➕ Новая часть: проверка на неотвеченные вопросы
+    const unansweredQuestions = this.surveyData.questions.filter(q => !this.answers[q.uuid]);
+    const confirmationMessage = this.shadowRoot.querySelector("#confirmation-container p");
+    
+    let message = "<strong>Вы уверены, что хотите отправить ответы?</strong>";
+    if (unansweredQuestions.length > 0) {
+      message += `<br><span style="color: red;">Есть неотвеченные вопросы (${unansweredQuestions.length})</span>`;
+    }
+  
+    confirmationMessage.innerHTML = message;
+  
     this.shadowRoot.querySelector("#confirmSubmit").onclick = () => this.submitSurvey();
     this.shadowRoot.querySelector("#cancelSubmit").onclick = () => this.cancelSubmit();
   }
-
+  
   cancelSubmit() {
     this.shadowRoot.querySelector("#confirmation-container").style.display = "none"; 
     this.shadowRoot.querySelector("#navigation-container").style.display = "flex"; 
